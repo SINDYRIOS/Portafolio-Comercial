@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portafolio Gerencial — Sindy Johana Ríos Galindo</title>
+  <meta name="description" content="Portafolio gerencial con resultados financieros, innovación y liderazgo de Sindy Johana Ríos Galindo." />
+
+  <!-- Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Swiper -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui'] },
+          colors: {
+            /* Paleta ejecutiva: marino, esmeralda, dorado sutil */
+            brand: { 50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81' },
+            ink:   { 50:'#f8fafc',100:'#f1f5f9',200:'#e2e8f0',300:'#cbd5e1',400:'#94a3b8',500:'#64748b',600:'#475569',700:'#334155',800:'#1e293b',900:'#0f172a' },
+            exec:  { navy:'#0b1b3a', emerald:'#10b981', gold:'#e0b050' }
+          },
+          boxShadow: {
+            soft: '0 10px 30px rgba(2,6,23,0.12)',
+            chart: '0 12px 30px rgba(17,24,39,0.22)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+  <style>
+    :root { --radius: 16px; }
+    body { font-feature-settings: "ss01","cv01","cv11","cv09","cv10"; }
+    .card-hover{ transition: transform .25s, box-shadow .25s; }
+    .card-hover:hover{ transform: translateY(-4px); box-shadow: 0 12px 28px rgba(2,6,23,.12); }
+    .gradient-text{
+      background: linear-gradient(90deg, #4f46e5, #10b981);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .number{ opacity:.0; transform: translateY(6px); transition: all .4s ease; white-space: nowrap; }
+    .number.in{ opacity:1; transform:none; }
+    .badge { display:inline-flex; align-items:center; gap:.4rem; padding:.25rem .6rem; border-radius:9999px; font-weight:600; font-size:.75rem; }
+    .chip { width:26px; height:26px; border-radius:9999px; border:1px solid rgba(0,0,0,.08); }
+    .shadow-card { box-shadow: 0 10px 30px rgba(11,27,58,.12); }
+  </style>
+</head>
+
+<body class="bg-ink-50 text-ink-900 dark:bg-ink-900 dark:text-ink-100">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 backdrop-blur bg-white/85 dark:bg-ink-900/80 border-b border-ink-200 dark:border-ink-800">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="h-16 flex items-center justify-between gap-3">
+        <a href="#" class="font-extrabold tracking-tight text-lg text-ink-900 dark:text-white">
+          Sindy Johana <span class="text-brand-600">Ríos Galindo</span>
+        </a>
+        <nav class="hidden md:flex gap-6 text-sm font-medium">
+          <a data-i18n="nav.perfil" href="#perfil" class="hover:text-brand-600">Perfil</a>
+          <a data-i18n="nav.impacto" href="#impacto" class="hover:text-brand-600">Impacto</a>
+          <a data-i18n="nav.graficos" href="#graficos" class="hover:text-brand-600">Gráficos</a>
+          <a data-i18n="nav.experiencia" href="#experiencia" class="hover:text-brand-600">Experiencia</a>
+          <a data-i18n="nav.kpis" href="#kpis" class="hover:text-brand-600">KPIs</a>
+          <a data-i18n="nav.metodos" href="#metodos" class="hover:text-brand-600">Metodologías</a>
+          <a data-i18n="nav.educacion" href="#educacion" class="hover:text-brand-600">Educación</a>
+          <a data-i18n="nav.contacto" href="#contacto" class="hover:text-brand-600">Contacto</a>
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <!-- Idioma -->
+          <button id="btn-lang" class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-ink-200 dark:border-ink-700 bg-white dark:bg-ink-800 text-sm hover:border-ink-300 dark:hover:border-ink-600" title="ES / EN">
+            <i class="fa-solid fa-language"></i> <span id="lang-label">ES</span>
+          </button>
+          <!-- Tema -->
+          <button id="btn-theme" class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-ink-200 dark:border-ink-700 bg-white dark:bg-ink-800 text-sm hover:border-ink-300 dark:hover:border-ink-600" title="Tema">
+            <i class="fa-solid fa-moon hidden dark:inline"></i>
+            <i class="fa-solid fa-sun dark:hidden"></i>
+            <span data-i18n="ui.tema">Tema</span>
+          </button>
+          <a href="#contacto" class="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-exec-navy text-white text-sm font-semibold shadow-soft hover:opacity-90">
+            <i class="fa-solid fa-paper-plane text-xs"></i> <span data-i18n="nav.contacto2">Contacto</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Hero -->
+  <section id="perfil" class="relative overflow-hidden">
+    <div class="absolute inset-0 -z-10 bg-gradient-to-br from-white via-brand-50 to-emerald-50 dark:from-ink-900 dark:via-ink-900 dark:to-ink-800"></div>
+    <div class="max-w-6xl mx-auto px-4 pt-12 pb-8 md:pt-16 md:pb-12">
+      <div class="grid md:grid-cols-12 gap-8 items-center">
+        <div class="md:col-span-7">
+          <h1 class="text-4xl md:text-5xl font-black tracking-tight">Sindy Johana Ríos Galindo</h1>
+          <p class="mt-2 text-xl font-extrabold gradient-text" data-i18n="hero.titulo">Administradora de Empresas · Especialista en Alta Gerencia (ESEIT)</p>
+          <p class="mt-4 text-ink-700 dark:text-ink-300 leading-relaxed max-w-2xl" data-i18n="hero.desc">
+            +11 años liderando ventas, estrategia comercial y transformación digital en consumo masivo B2B/B2C. Experta en omnicanalidad, e-commerce y autogestión (SurtiApp, CMS, CRM, SAP). Enfoque en crecimiento sostenible, eficiencia operativa y liderazgo de alto desempeño.
+          </p>
+
+          <div class="mt-6 flex flex-wrap gap-3">
+            <span class="badge bg-brand-100 text-brand-700 border border-brand-200 dark:bg-ink-800 dark:text-ink-200 dark:border-ink-700"><i class="fa-solid fa-user-tie"></i> <span data-i18n="tags.liderazgo">Liderazgo</span></span>
+            <span class="badge bg-emerald-100 text-emerald-800 border border-emerald-200 dark:bg-ink-800 dark:text-ink-200 dark:border-ink-700"><i class="fa-solid fa-diagram-project"></i> <span data-i18n="tags.transformacion">Transformación</span></span>
+            <span class="badge bg-indigo-100 text-indigo-800 border border-indigo-200 dark:bg-ink-800 dark:text-ink-200 dark:border-ink-700"><i class="fa-solid fa-chart-line"></i> KPIs</span>
+            <span class="badge bg-amber-100 text-amber-800 border border-amber-200 dark:bg-ink-800 dark:text-ink-200 dark:border-ink-700"><i class="fa-solid fa-lightbulb"></i> <span data-i18n="tags.innovacion">Innovación</span></span>
+          </div>
+          <div class="mt-8 flex items-center gap-3">
+            <a href="#experiencia" class="px-5 py-3 rounded-lg bg-exec-navy text-white font-semibold shadow-soft hover:opacity-90" data-i18n="cta.experiencia">Ver experiencia</a>
+            <a href="#contacto" class="px-5 py-3 rounded-lg border border-ink-200 dark:border-ink-700 bg-white dark:bg-ink-800 font-semibold hover:border-ink-300 dark:hover:border-ink-600" data-i18n="cta.contactar">Contactar</a>
+          </div>
+        </div>
+
+        <!-- Tarjeta de contacto con foto -->
+        <div class="md:col-span-5">
+          <div class="bg-white dark:bg-ink-800 rounded-2xl p-6 border border-ink-200 dark:border-ink-700 shadow-card">
+            <div class="flex items-center gap-4">
+              <img src="img/foto.jpeg" alt="Foto de perfil de Sindy Johana Ríos Galindo" class="w-24 h-24 rounded-full object-cover ring-4 ring-white dark:ring-ink-900 shadow-soft">
+              <div>
+                <h3 class="font-bold" data-i18n="contacto.titulo">Datos de contacto</h3>
+                <p class="text-sm text-ink-600 dark:text-ink-300">Bogotá (Kennedy), Colombia</p>
+              </div>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-phone text-ink-500 w-5 text-[18px]"></i> <a href="tel:+573214234224" class="hover:text-brand-600">321 423 4224</a></li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-envelope text-ink-500 w-5 text-[18px]"></i> <a href="mailto:sijoriga@hotmail.com" class="hover:text-brand-600">sijoriga@hotmail.com</a></li>
+              <li class="flex items-center gap-2"><i class="fa-brands fa-whatsapp text-emerald-500 w-5 text-[18px]"></i> <a href="https://wa.me/573214234224" target="_blank" class="hover:text-emerald-600">WhatsApp</a></li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-briefcase text-ink-500 w-5 text-[18px]"></i> <span data-i18n="contacto.disponibilidad">Disponibilidad: Tiempo completo</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPIs de impacto -->
+  <section id="impacto" class="py-10">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight" data-i18n="impacto.titulo">Impacto medible</h2>
+
+      <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Ventas (abreviado para evitar desbordes) -->
+        <div class="bg-white dark:bg-ink-800 border border-ink-200 dark:border-ink-700 rounded-2xl p-6 card-hover">
+          <p class="text-sm text-ink-500 dark:text-ink-300" data-i18n="impacto.ventas">Ventas anuales gestionadas</p>
+          <p class="font-black number text-2xl sm:text-3xl tracking-tight" data-target="12900000000" data-format="money-abbr">—</p>
+          <p class="text-xs text-ink-500 dark:text-ink-400 mt-1">COP</p>
+        </div>
+        <div class="bg-white dark:bg-ink-800 border border-ink-200 dark:border-ink-700 rounded-2xl p-6 card-hover">
+          <p class="text-sm text-ink-500 dark:text-ink-300" data-i18n="impacto.crecimiento">Crecimiento acumulado</p>
+          <p class="font-black number text-2xl sm:text-3xl tracking-tight" data-target="28" data-suffix="%">—</p>
+          <p class="text-xs text-ink-500 dark:text-ink-400 mt-1" data-i18n="impacto.omni">Ventas omnicanal 3 años</p>
+        </div>
+        <div class="bg-white dark:bg-ink-800 border border-ink-200 dark:border-ink-700 rounded-2xl p-6 card-hover">
+          <p class="text-sm text-ink-500 dark:text-ink-300" data-i18n="impacto.eficiencias">Eficiencias operativas</p>
+          <p class="font-black number text-2xl sm:text-3xl tracking-tight" data-target="17" data-suffix="%">—</p>
+          <p class="text-xs text-ink-500 dark:text-ink-400 mt-1" data-i18n="impacto.costos">Reducción de costos comerciales</p>
+        </div>
+        <div class="bg-white dark:bg-ink-800 border border-ink-200 dark:border-ink-700 rounded-2xl p-6 card-hover">
+          <p class="text-sm text-ink-500 dark:text-ink-300" data-i18n="impacto.talento">Talento liderado</p>
+          <p class="font-black number text-2xl sm:text-3xl tracking-tight" data-target="572">—</p>
+          <p class="text-xs text-ink-500 dark:text-ink-400 mt-1" data-i18n="impacto.areas">Ventas, mercadeo y backoffice</p>
+        </div>
+      </div>
+
+      <div class="mt-6 grid md:grid-cols-3 gap-6 text-sm text-ink-700 dark:text-ink-300">
+        <div class="bg-white dark:bg-ink-800 border border-ink-200 dark:border-ink-700 rounded-2xl p-5">
+          <p><i class="fa-solid fa-sack-dollar text-emerald-600 mr-2"></i><b>Altipal (Jefe de Ventas E-B2B):</b> COP $10.986.906.410; +<b>19%</b> crecimiento; ticket +<b>14%</b>; cobertura <b>54.841</b>; catálogo <b>3.5k+</b> SKUs, <b>80+</b> proveedores.</p>
+        </div>
+        <div class="bg-white dark:bg-ink-800 border border-ink-200 dark:border-ink-700 rounded-2xl p-5">
+          <p><i class="fa-solid fa-people-group text-brand-600 mr-2"></i><b>Universales Delta (Ger. Comercial):</b> COP $1.800.000.000/año; fuerza <b>30</b> reps; rotación ↓<b>22%</b>; fill rate ↑<b>7 pp</b>; margen ↑<b>3.2 pp</b>; CMS B2B.</p>
+        </div>
+        <div class="bg-white dark:bg-ink-800 border border-ink-200 dark:border-ink-700 rounded-2xl p-5">
+          <p><i class="fa-solid fa-wand-magic-sparkles text-violet-600 mr-2"></i><b>Innovación:</b> SurtiApp, e-commerce multimarca, CMS, tableros de KPIs; tiempos de pedido ↓<b>35%</b> y aprobación ↓<b>40%</b>.</p>
+        </div>
+      </div>
+      <p class="text-xs text-ink-500 dark:text-ink-400 mt-3" data-i18n="impacto.nota">*Cifras aproximadas para uso de portafolio.</p>
+    </div>
+  </section>
+
+  <!-- Gráficos -->
+  <section id="graficos" class="py-10 bg-white dark:bg-ink-800">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight" data-i18n="graficos.titulo">Indicadores visuales</h2>
+
+      <div class="mt-6 grid md:grid-cols-2 gap-8">
+        <!-- Donut Innovación -->
+        <div class="bg-white dark:bg-ink-900 border border-ink-200 dark:border-ink-700 rounded-2xl p-6 shadow-soft">
+          <h3 class="font-bold mb-2" data-i18n="graficos.innov">Enfoque de Innovación</h3>
+          <p class="text-sm text-ink-600 dark:text-ink-300" data-i18n="graficos.innovDesc">Distribución de iniciativas: Apps, E-commerce y CMS/Automatización.</p>
+          <canvas id="chartInnovacion" class="mt-4"></canvas>
+        </div>
+
+        <!-- Barras Impacto financiero -->
+        <div class="bg-white dark:bg-ink-900 border border-ink-200 dark:border-ink-700 rounded-2xl p-6 shadow-soft">
+          <h3 class="font-bold mb-2" data-i18n="graficos.fin">Impacto financiero (incremento anual estimado)</h3>
+          <p class="text-sm text-ink-600 dark:text-ink-300" data-i18n="graficos.finDesc">Incremento incremental de ventas vs. base (COP millones).</p>
+          <canvas id="chartImpacto" class="mt-4"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPIs por empresa -->
+  <section id="kpis" class="py-10">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight" data-i18n="kpis.titulo">KPIs por empresa</h2>
+      <div class="mt-6 overflow-x-auto">
+        <table class="min-w-full text-sm bg-white dark:bg-ink-800 border border-ink-200 dark:border-ink-700 rounded-xl overflow-hidden">
+          <thead class="bg-ink-100 dark:bg-ink-900">
+            <tr class="text-left">
+              <th class="px-4 py-3" data-i18n="kpis.empresa">Empresa</th>
+              <th class="px-4 py-3" data-i18n="kpis.cobertura">Cobertura</th>
+              <th class="px-4 py-3" data-i18n="kpis.volumen">Volumen (COP)</th>
+              <th class="px-4 py-3" data-i18n="kpis.profundidad">Profundidad portafolio</th>
+              <th class="px-4 py-3" data-i18n="kpis.nuevos">Clientes nuevos</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-ink-200 dark:divide-ink-700">
+            <tr>
+              <td class="px-4 py-3">Altipal S.A.S.</td>
+              <td class="px-4 py-3">54.841 clientes</td>
+              <td class="px-4 py-3">$10.986.906.410</td>
+              <td class="px-4 py-3">3.500+ SKUs · 80+ proveedores</td>
+              <td class="px-4 py-3">8.200/año</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">Universales Delta H.O.</td>
+              <td class="px-4 py-3">4.120 clientes</td>
+              <td class="px-4 py-3">$1.800.000.000</td>
+              <td class="px-4 py-3">1.200 SKUs</td>
+              <td class="px-4 py-3">950/año</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">Surtilider S.A.S.</td>
+              <td class="px-4 py-3">2.300 clientes</td>
+              <td class="px-4 py-3">$680.000.000</td>
+              <td class="px-4 py-3">950 SKUs</td>
+              <td class="px-4 py-3">540/año</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">Hatsu / Postobón</td>
+              <td class="px-4 py-3">1.150 puntos</td>
+              <td class="px-4 py-3">$500.000.000</td>
+              <td class="px-4 py-3">12 presentaciones</td>
+              <td class="px-4 py-3">460/año</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">Avon Colombia</td>
+              <td class="px-4 py-3">300 empresarias activas</td>
+              <td class="px-4 py-3">$230.000.000</td>
+              <td class="px-4 py-3">1.100 SKUs</td>
+              <td class="px-4 py-3">380/año</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experiencia (se mantiene en ES base) -->
+  <section id="experiencia" class="py-12">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight" data-i18n="exp.titulo">Experiencia relevante</h2>
+
+      <!-- ALTIPAL -->
+      <article class="mt-8 grid md:grid-cols-12 gap-6 card-hover bg-white dark:bg-ink-800 border border-ink-200 dark:border-ink-700 rounded-2xl p-6">
+        <div class="md:col-span-4 space-y-2">
+          <h3 class="font-bold text-xl">ALTIPAL S.A.S.</h3>
+          <p class="text-sm text-ink-600 dark:text-ink-300">Jefe de Ventas Canal E-B2B</p>
+          <p class="text-sm text-ink-600 dark:text-ink-300">Jul 2024 – Jul 2025 · Bogotá</p>
+          <div class="flex flex-wrap gap-2 text-xs mt-2">
+            <span class="badge bg-emerald-100 text-emerald-700 border border-emerald-200 dark:bg-ink-900 dark:text-ink-200 dark:border-ink-700"><i class="fa-solid fa-sack-dollar"></i> Presupuesto $10.99B</span>
+            <span class="badge bg-blue-100 text-blue-700 border border-blue-200 dark:bg-ink-900 dark:text-ink-200 dark:border-ink-700"><i class="fa-solid fa-users"></i> 210 reps</span>
+            <span class="badge bg-orange-100 text-orange-800 border border-orange-200 dark:bg-ink-900 dark:text-ink-200 dark:border-ink-700"><i class="fa-solid fa-boxes-stacked"></i> 3.5k SKUs</span>
+          </div>
+          <p class="text-xs mt-2 text-ink-500 dark:text-ink-400">Marcas: Diageo, Four Loko, Juan Valdez, Johnson & Johnson, SC Johnson, Kellogg, Reckitt, Soberana, Vibien, entre otras.</p>
+        </div>
+        <div class="md:col-span-8 space-y-3 text-ink-800 dark:text-ink-200">
+          <ul class="list-disc pl-5 leading-relaxed">
+            <li><b>Omnicanal:</b> expansión a 32 departamentos con cobertura en <b>54.841</b> clientes on/off.</li>
+            <li><b>Crecimiento neto +19%:</b> pricing por elasticidad, mix de portafolio y activaciones TAT + moderno.</li>
+            <li><b>Digitalización:</b> SurtiApp y catálogo digital (80+ proveedores / 3.500+ productos).</li>
+            <li><b>Productividad:</b> embudo comercial y coaching → conversión ↑ <b>+3.8 pp</b>, tiempo de pedido ↓ <b>−35%</b>.</li>
+            <li><b>Gobernanza de datos:</b> tableros de KPIs (sell-in, cobertura, cumplimiento, fill rate).</li>
+          </ul>
+          <p class="text-ink-600 dark:text-ink-300 text-sm">Resultado: mayor rotación, <b>ticket +14%</b> y menor quiebre.</p>
+        </div>
+      </article>
+
+      <!-- Universales Delta -->
+      <article class="mt-6 grid md:grid-cols-12 gap-6 card-hover bg-white dark:bg-ink-800 border border-ink-200 dark:border-ink-700 rounded-2xl p-6">
+        <div class="md:col-span-4 space-y-2">
+          <h3 class="font-bold text-xl">UNIVERSALES DELTA H.O.</h3>
+          <p class="text-sm text-ink-600 dark:text-ink-300">Gerente Comercial</p>
+          <p class="text-sm text-ink-600 dark:text-ink-300">May 2019 – Jun 2024 · Bogotá</p>
+          <div class="flex flex-wrap gap-2 text-xs mt-2">
+            <span class="badge bg-emerald-100 text-emerald-700 border border-emerald-200 dark:bg-ink-900 dark:text-ink-200 dark:border-ink-700"><i class="fa-solid fa-sack-dollar"></i> Presupuesto $1.8B</span>
+            <span class="badge bg-blue-100 text-blue-700 border border-blue-200 dark:bg-ink-900 dark:text-ink-200 dark:border-ink-700"><i class="fa-solid fa-users"></i> 30 reps</span>
+            <span class="badge bg-violet-100 text-violet-800 border border-violet-200 dark:bg-ink-900 dark:text-ink-200 dark:border-ink-700"><i class="fa-solid fa-gears"></i> CMS propio</span>
+          </div>
+          <p class="text-xs mt-2 text-ink-500 dark:text-ink-400">Proveedores: Tecnoquímica, Pfizer, P&G, Interbel, Naturaleza & Vida, etc.</p>
+        </div>
+        <div class="md:col-span-8 space-y-3 text-ink-800 dark:text-ink-200">
+          <ul class="list-disc pl-5 leading-relaxed">
+            <li>Estrategia E-B2B/B2C: pricing por zonas, packs de valor, acuerdos con mayoristas.</li>
+            <li>CMS comercial: pedidos, surtido sugerido, SLA → ciclo ↓ <b>40%</b>.</li>
+            <li>Rentabilidad: margen ↑ <b>3.2 pp</b> por mix y descuentos.</li>
+            <li>Talento: 30 reps con OKRs; rotación ↓ <b>22%</b>.</li>
+          </ul>
+          <p class="text-ink-600 dark:text-ink-300 text-sm">Resultado: incremento ~<b>$420 MM</b> y fill rate +<b>7 pp</b>.</p>
+        </div>
+      </article>
+
+      <!-- Surtilider -->
+      <article class="mt-6 grid md:grid-cols-12 gap-6 card-hover bg-white dark:bg-ink-800 border border-ink-200 dark:border-ink-700 rounded-2xl p-6">
+        <div class="md:col-span-4 space-y-2">
+          <h3 class="font-bold text-xl">SURTILIDER S.A.S.</h3>
+          <p class="text-sm text-ink-600 dark:text-ink-300">Supervisora TAT</p>
+          <p class="text-sm text-ink-600 dark:text-ink-300">May 2017 – May 2019 · Bogotá</p>
+          <div class="flex flex-wrap gap-2 text-xs mt-2">
+            <span class="badge bg-emerald-100 text-emerald-700 border border-emerald-200 dark:bg-ink-900 dark:text-ink-200 dark:border-ink-700"><i class="fa-solid fa-sack-dollar"></i> Presupuesto $680M</span>
+            <span class="badge bg-blue-100 text-blue-700 border border-blue-200 dark:bg-ink-900 dark:text-ink-200 dark:border-ink-700"><i class="fa-solid fa-users-line"></i> 18 reps</span>
+            <span class="badge bg-orange-100 text-orange-800 border border-orange-200 dark:bg-ink-900 dark:text-ink-200 dark:border-ink-700"><i class="fa-solid fa-store"></i> Canal TAT</span>
+          </div>
+        </div>
+        <div class="md:col-span-8 space-y-3 text-ink-800 dark:text-ink-200">
+          <ul class="list-disc pl-5 leading-relaxed">
+            <li>Rutas eficientes y segmentación ABC → cobertura ↑ <b>18%</b>.</li>
+            <li>POP y estacionalidad → sell-out ↑ <b>12%</b>.</li>
+            <li>Capacitación en negociación y ejecución en PDV.</li>
+          </ul>
+          <p class="text-ink-600 dark:text-ink-300 text-sm">Resultado: incremento ~<b>$180 MM</b>.</p>
+        </div>
+      </article>
+
+      <!-- Hatsu / Postobón -->
+      <article class="mt-6 grid md:grid-cols-12 gap-6 card-hover bg-white dark:bg-ink-800 border border-ink-200 dark:border-ink-700 rounded-2xl p-6">
+        <div class="md:col-span-4 space-y-2">
+          <h3 class="font-bold text-xl">HATSU / POSTOBÓN</h3>
+          <p class="text-sm text-ink-600 dark:text-ink-300">Supervisora TAT</p>
+          <p class="text-sm text-ink-600 dark:text-ink-300">Ene 2016 – Abr 2017 · Bogotá</p>
+          <div class="flex flex-wrap gap-2 text-xs mt-2">
+            <span class="badge bg-emerald-100 text-emerald-700 border border-emerald-200 dark:bg-ink-900 dark:text-ink-200 dark:border-ink-700"><i class="fa-solid fa-money-bill-trend-up"></i> $500M</span>
+            <span class="badge bg-blue-100 text-blue-700 border border-blue-200 dark:bg-ink-900 dark:text-ink-200 dark:border-ink-700"><i class="fa-solid fa-users-line"></i> 14 impulso</span>
+          </div>
+        </div>
+        <div class="md:col-span-8 space-y-3 text-ink-800 dark:text-ink-200">
+          <ul class="list-disc pl-5 leading-relaxed">
+            <li>Lanzamiento 250 ml TAT → distribución numérica ↑ <b>24 pp</b>.</li>
+            <li>Equipo de impulso (14) con degustaciones y sampling.</li>
+            <li>Ingreso al canal tradicional; acuerdos con mayoristas.</li>
+          </ul>
+          <p class="text-ink-600 dark:text-ink-300 text-sm">Resultado: crecimiento ~<b>$90 MM</b> y share +<b>8 pp</b>.</p>
+        </div>
+      </article>
+
+      <!-- Avon -->
+      <article class="mt-6 grid md:grid-cols-12 gap-6 card-hover bg-white dark:bg-ink-800 border border-ink-200 dark:border-ink-700 rounded-2xl p-6">
+        <div class="md:col-span-4 space-y-2">
+          <h3 class="font-bold text-xl">AVON COLOMBIA</h3>
+          <p class="text-sm text-ink-600 dark:text-ink-300">Líder Comercial (PAP)</p>
+          <p class="text-sm text-ink-600 dark:text-ink-300">Ene 2010 – Jul 2015 · Bogotá</p>
+          <div class="flex flex-wrap gap-2 text-xs mt-2">
+            <span class="badge bg-emerald-100 text-emerald-700 border border-emerald-200 dark:bg-ink-900 dark:text-ink-200 dark:border-ink-700"><i class="fa-solid fa-money-bill-trend-up"></i> $230M</span>
+            <span class="badge bg-blue-100 text-blue-700 border border-blue-200 dark:bg-ink-900 dark:text-ink-200 dark:border-ink-700"><i class="fa-solid fa-users-between-lines"></i> 300 empresarias</span>
+            <span class="badge bg-amber-100 text-amber-700 border border-amber-200 dark:bg-ink-900 dark:text-ink-200 dark:border-ink-700"><i class="fa-solid fa-chalkboard-user"></i> Formación</span>
+          </div>
+        </div>
+        <div class="md:col-span-8 space-y-3 text-ink-800 dark:text-ink-200">
+          <ul class="list-disc pl-5 leading-relaxed">
+            <li>Estrategia PAP: reclutamiento, capacitación y acompañamiento en campo.</li>
+            <li>Fidelización e incentivos por logro; conferencias de ciclo.</li>
+            <li>Optimización de rutas y cobertura por zonas; KPIs semanales.</li>
+          </ul>
+          <p class="text-ink-600 dark:text-ink-300 text-sm">Resultado: incremento ~<b>$110 MM</b> y cartera vigente +<b>9 pp</b>.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Metodologías (modular) -->
+  <section id="metodos" class="py-10 bg-white dark:bg-ink-800">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight" data-i18n="metodos.titulo">Metodologías</h2>
+
+      <!-- SIRI v1 -->
+      <details class="mt-6 group bg-white dark:bg-ink-900 border border-ink-200 dark:border-ink-700 rounded-2xl p-6">
+        <summary class="cursor-pointer list-none flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <i class="fa-solid fa-route text-brand-600"></i>
+            <span class="font-bold">S.I.R.I. Vendedor — Superación · Innovación · Resultados · Impacto</span>
+          </div>
+          <i class="fa-solid fa-chevron-down transition-transform group-open:rotate-180"></i>
+        </summary>
+        <div class="mt-4 text-sm leading-relaxed space-y-3">
+          <p>Metodología propia de formación y gestión comercial, aplicable a cualquier canal de ventas: estandariza procesos, empodera vendedores y asegura resultados sostenibles.</p>
+          <ol class="list-decimal pl-5 space-y-2">
+            <li><b>S – Superación:</b> objetivos SMART diarios/semanales; revisión de KPIs; preparación de materiales; mentalidad de logro. <i>Meta:</i> iniciar con claridad.</li>
+            <li><b>I – Innovación:</b> impulsores (distribución, visibilidad, precio, promo, negociación, fidelización); uso de CRM/CMS/POP; creatividad en propuesta. <i>Meta:</i> experiencias de valor.</li>
+            <li><b>R – Resultados:</b> diagnóstico; propuesta consultiva; manejo de objeciones; cierre con acción concreta. <i>Meta:</i> resultados medibles por visita.</li>
+            <li><b>I – Impacto:</b> certificación; evaluación de KPIs; coaching continuo; cultura de aprendizaje. <i>Meta:</i> crecimiento sostenible.</li>
+          </ol>
+          <ul class="list-disc pl-5">
+            <li>Incrementa conversión de visitas a ventas.</li>
+            <li>Proceso claro y replicable de planeación a medición.</li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- SIRI Líder -->
+      <details class="mt-4 group bg-white dark:bg-ink-900 border border-ink-200 dark:border-ink-700 rounded-2xl p-6">
+        <summary class="cursor-pointer list-none flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <i class="fa-solid fa-user-shield text-emerald-600"></i>
+            <span class="font-bold">S.I.R.I. Líder — Supervisión · Inspiración · Resultados · Interacción</span>
+          </div>
+          <i class="fa-solid fa-chevron-down transition-transform group-open:rotate-180"></i>
+        </summary>
+        <div class="mt-4 text-sm leading-relaxed space-y-3">
+          <p>Guía práctica de acompañamiento diario para jefes y supervisores.</p>
+          <ol class="list-decimal pl-5 space-y-2">
+            <li><b>S – Supervisión estratégica:</b> validar objetivos SMART; confirmar focos y promos; observar ejecución. <i>Checklist:</i> presentación, portafolio, intento de cierre.</li>
+            <li><b>I – Inspiración y compromiso:</b> reconocer aciertos, animar en visitas difíciles, reforzar compromiso con mensajes breves, demostrar confianza.</li>
+            <li><b>R – Resultados y responsabilidad:</b> mini-retro: ¿qué lograste?, ¿qué faltó?, ¿qué harás distinto? compromiso para la próxima visita.</li>
+            <li><b>I – Interacción y cierre del día:</b> balance vs SMART, compromisos individuales, reconocimiento, tip práctico y escucha activa.</li>
+          </ol>
+          <p class="mt-2"><b>KPIs de acompañamiento:</b> % vendedores con SMART validados; % visitas acompañadas vs plan; % compromisos cumplidos día siguiente; percepción de calidad de acompañamiento.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Educación -->
+  <section id="educacion" class="py-12">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight" data-i18n="edu.titulo">Educación & Formación</h2>
+      <ul class="mt-6 space-y-3 text-ink-800 dark:text-ink-200">
+        <li><b>Especialización en Alta Gerencia</b> — ESEIT</li>
+        <li><b>Administración de Empresas</b> — Corporación Universitaria UNITEC</li>
+        <li><b>Técnico Profesional en Sistemas</b> — SENA</li>
+        <li><b>Diplomado en E-commerce y Posicionamiento Web</b> — UNITEC</li>
+        <li><b>Cursos SENA:</b> CRM, SAP WB, Metodología de Programación</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto" class="py-12 bg-white dark:bg-ink-800">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="grid md:grid-cols-2 gap-8 items-start">
+        <div>
+          <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight" data-i18n="contacto.titulo2">Contacto</h2>
+          <p class="mt-3 text-ink-700 dark:text-ink-300" data-i18n="contacto.desc">¿Conversamos? Escríbeme o llámame.</p>
+          <div class="mt-5 flex flex-wrap items-center gap-3">
+            <button id="btn-copy-mail" class="px-4 py-2 rounded-lg border border-ink-200 dark:border-ink-700 bg-white dark:bg-ink-900 font-semibold hover:border-ink-300 dark:hover:border-ink-600" data-mail="sijoriga@hotmail.com" data-i18n="contacto.copiar">Copiar e-mail</button>
+            <a class="px-4 py-2 rounded-lg bg-exec-navy text-white font-semibold shadow-soft hover:opacity-90" href="mailto:sijoriga@hotmail.com" data-i18n="contacto.escribir">Escribir correo</a>
+            <a class="px-4 py-2 rounded-lg border border-ink-200 dark:border-ink-700 bg-white dark:bg-ink-900 font-semibold hover:border-ink-300 dark:hover:border-ink-600" href="tel:+573214234224" data-i18n="contacto.llamar">Llamar</a>
+            <a class="px-4 py-2 rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-700 dark:border-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300 font-semibold hover:opacity-90" href="https://wa.me/573214234224" target="_blank"><i class="fa-brands fa-whatsapp mr-1"></i> WhatsApp</a>
+          </div>
+        </div>
+        <form id="form-contacto" class="bg-white dark:bg-ink-900 border border-ink-200 dark:border-ink-700 rounded-2xl p-6 shadow-soft">
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-ink-700 dark:text-ink-300" data-i18n="form.nombre">Nombre</label>
+              <input type="text" class="mt-1 w-full rounded-lg border-ink-200 dark:border-ink-700 bg-white dark:bg-ink-800 text-ink-900 dark:text-ink-100 focus:border-brand-600 focus:ring-brand-600" placeholder="Tu nombre" required />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-ink-700 dark:text-ink-300" data-i18n="form.correo">Correo</label>
+              <input type="email" class="mt-1 w-full rounded-lg border-ink-200 dark:border-ink-700 bg-white dark:bg-ink-800 text-ink-900 dark:text-ink-100 focus:border-brand-600 focus:ring-brand-600" placeholder="tucorreo@dominio.com" required />
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-sm font-medium text-ink-700 dark:text-ink-300" data-i18n="form.mensaje">Mensaje</label>
+              <textarea rows="4" class="mt-1 w-full rounded-lg border-ink-200 dark:border-ink-700 bg-white dark:bg-ink-800 text-ink-900 dark:text-ink-100 focus:border-brand-600 focus:ring-brand-600" placeholder="Cuéntame brevemente sobre tu proyecto"></textarea>
+            </div>
+          </div>
+          <button class="mt-4 w-full px-5 py-3 rounded-lg bg-exec-navy text-white font-semibold shadow-soft hover:opacity-90" type="submit" data-i18n="form.enviar">Enviar</button>
+          <p id="form-contacto-msg" class="mt-2 text-sm text-ink-600 dark:text-ink-300 hidden"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-8 border-t border-ink-200 dark:border-ink-800 bg-white dark:bg-ink-900">
+    <div class="max-w-6xl mx-auto px-4 text-sm text-ink-600 dark:text-ink-300 flex flex-col md:flex-row items-center justify-between gap-2">
+      <p>© <span id="year"></span> Sindy Johana Ríos Galindo · <span data-i18n="ui.portafolio">Portafolio Gerencial</span></p>
+      <a href="#" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-ink-200 dark:border-ink-700 bg-white dark:bg-ink-800 hover:border-ink-300 dark:hover:border-ink-600">
+        <i class="fa-solid fa-arrow-up"></i> <span data-i18n="ui.arriba">Volver arriba</span>
+      </a>
+    </div>
+  </footer>
+
+  <!-- JS: interacciones, idioma, tema, gráficos -->
+  <script>
+    // ========= Utilidades =========
+    const $ = jQuery;
+    $('#year').text(new Date().getFullYear());
+
+    // Tema
+    const root = document.documentElement;
+    const THEME_KEY = 'sindy_theme';
+    function applyTheme(t){ root.classList.toggle('dark', t === 'dark'); localStorage.setItem(THEME_KEY, t); if (window._rebuildCharts) _rebuildCharts(); }
+    applyTheme(localStorage.getItem(THEME_KEY) || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+    $('#btn-theme').on('click', () => applyTheme(root.classList.contains('dark') ? 'light' : 'dark'));
+
+    // Idioma (ES/EN)
+    const LANG_KEY = 'sindy_lang';
+    const i18n = {
+      es: {
+        'nav.perfil':'Perfil','nav.impacto':'Impacto','nav.graficos':'Gráficos','nav.experiencia':'Experiencia','nav.kpis':'KPIs','nav.metodos':'Metodologías','nav.educacion':'Educación','nav.contacto':'Contacto','nav.contacto2':'Contacto',
+        'ui.tema':'Tema','ui.arriba':'Volver arriba','ui.portafolio':'Portafolio Gerencial','ui.paleta':'Paleta ejecutiva:',
+        'hero.titulo':'Administradora de Empresas · Especialista en Alta Gerencia (ESEIT)',
+        'hero.desc':'+11 años liderando ventas, estrategia comercial y transformación digital en consumo masivo B2B/B2C. Experta en omnicanalidad, e-commerce y autogestión (SurtiApp, CMS, CRM, SAP). Enfoque en crecimiento sostenible, eficiencia operativa y liderazgo de alto desempeño.',
+        'impacto.titulo':'Impacto medible','impacto.ventas':'Ventas anuales gestionadas','impacto.crecimiento':'Crecimiento acumulado','impacto.omni':'Ventas omnicanal 3 años','impacto.eficiencias':'Eficiencias operativas','impacto.costos':'Reducción de costos comerciales','impacto.talento':'Talento liderado','impacto.areas':'Ventas, mercadeo y backoffice','impacto.nota':'*Cifras aproximadas para uso de portafolio.',
+        'graficos.titulo':'Indicadores visuales','graficos.innov':'Enfoque de Innovación','graficos.innovDesc':'Distribución de iniciativas: Apps, E-commerce y CMS/Automatización.','graficos.fin':'Impacto financiero (incremento anual estimado)','graficos.finDesc':'Incremento incremental de ventas vs. base (COP millones).',
+        'kpis.titulo':'KPIs por empresa','kpis.empresa':'Empresa','kpis.cobertura':'Cobertura','kpis.volumen':'Volumen (COP)','kpis.profundidad':'Profundidad portafolio','kpis.nuevos':'Clientes nuevos',
+        'exp.titulo':'Experiencia relevante',
+        'metodos.titulo':'Metodologías',
+        'contacto.titulo':'Datos de contacto','contacto.titulo2':'Contacto','contacto.disponibilidad':'Disponibilidad: Tiempo completo','contacto.desc':'¿Conversamos? Escríbeme o llámame.','contacto.copiar':'Copiar e-mail','contacto.escribir':'Escribir correo','contacto.llamar':'Llamar',
+        'edu.titulo':'Educación & Formación',
+        'form.nombre':'Nombre','form.correo':'Correo','form.mensaje':'Mensaje','form.enviar':'Enviar',
+        'cta.experiencia':'Ver experiencia','cta.contactar':'Contactar'
+      },
+      en: {
+        'nav.perfil':'Profile','nav.impacto':'Impact','nav.graficos':'Charts','nav.experiencia':'Experience','nav.kpis':'KPIs','nav.metodos':'Methodologies','nav.educacion':'Education','nav.contacto':'Contact','nav.contacto2':'Contact',
+        'ui.tema':'Theme','ui.arriba':'Back to top','ui.portafolio':'Executive Portfolio','ui.paleta':'Executive palette:',
+        'hero.titulo':'Business Administrator · Executive Management Specialist (ESEIT)',
+        'hero.desc':'+11 years leading sales, commercial strategy and digital transformation in FMCG B2B/B2C. Expert in omnichannel, e-commerce and self-service platforms (SurtiApp, CMS, CRM, SAP). Focused on sustainable growth, operational efficiency and high-performance leadership.',
+        'impacto.titulo':'Measurable impact','impacto.ventas':'Annual sales managed','impacto.crecimiento':'Cumulative growth','impacto.omni':'Omnichannel sales · 3 years','impacto.eficiencias':'Operational efficiencies','impacto.costos':'Commercial cost reduction','impacto.talento':'Talent led','impacto.areas':'Sales, marketing & backoffice','impacto.nota':'*Approximate figures for portfolio use.',
+        'graficos.titulo':'Visual indicators','graficos.innov':'Innovation focus','graficos.innovDesc':'Distribution of initiatives: Apps, E-commerce and CMS/Automation.','graficos.fin':'Financial impact (annual uplift)','graficos.finDesc':'Incremental sales vs. base (COP millions).',
+        'kpis.titulo':'Company KPIs','kpis.empresa':'Company','kpis.cobertura':'Coverage','kpis.volumen':'Volume (COP)','kpis.profundidad':'Portfolio depth','kpis.nuevos':'New clients',
+        'exp.titulo':'Relevant experience',
+        'metodos.titulo':'Methodologies',
+        'contacto.titulo':'Contact details','contacto.titulo2':'Contact','contacto.disponibilidad':'Availability: Full time','contacto.desc':'Let’s talk? Email or call me.','contacto.copiar':'Copy e-mail','contacto.escribir':'Send e-mail','contacto.llamar':'Call',
+        'edu.titulo':'Education & Training',
+        'form.nombre':'Name','form.correo':'E-mail','form.mensaje':'Message','form.enviar':'Send',
+        'cta.experiencia':'View experience','cta.contactar':'Contact'
+      }
+    };
+    function applyLang(lang){
+      $('[data-i18n]').each(function(){
+        const k = this.getAttribute('data-i18n'); if(i18n[lang][k]) this.textContent = i18n[lang][k];
+      });
+      $('#lang-label').text(lang.toUpperCase());
+      localStorage.setItem(LANG_KEY, lang);
+      // Actualiza etiquetas de charts
+      if (window._rebuildCharts) _rebuildCharts();
+    }
+    applyLang(localStorage.getItem(LANG_KEY) || 'es');
+    $('#btn-lang').on('click', () => applyLang( ($('#lang-label').text().toLowerCase() === 'es') ? 'en' : 'es'));
+
+    // Copiar email
+    $('#btn-copy-mail').on('click', function(){
+      const mail = $(this).data('mail'); if (!mail) return;
+      navigator.clipboard.writeText(mail).then(() => {
+        $(this).text( $('#lang-label').text()==='EN' ? 'Copied ✓' : 'Copiado ✓' ).addClass('bg-exec-navy text-white');
+        setTimeout(()=> $(this).text( $('#lang-label').text()==='EN' ? 'Copy e-mail' : 'Copiar e-mail' ).removeClass('bg-exec-navy text-white'), 1600);
+      });
+    });
+
+    // Fake submit formulario
+    $('#form-contacto').on('submit', function(e){
+      e.preventDefault();
+      const $btn = $(this).find('button[type="submit"]');
+      const $msg = $('#form-contacto-msg');
+      $btn.prop('disabled', true).text( $('#lang-label').text()==='EN' ? 'Sending…' : 'Enviando…');
+      setTimeout(() => {
+        $msg.removeClass('hidden').text( $('#lang-label').text()==='EN' ? 'Thanks! I will contact you soon.' : '¡Gracias! Me pondré en contacto pronto.' );
+        $btn.prop('disabled', false).text( $('#lang-label').text()==='EN' ? 'Send' : 'Enviar');
+        this.reset();
+      }, 900);
+    });
+
+    // ========= Números / formato abreviado =========
+    function abbrMoney(val){
+      const abs = Math.abs(val);
+      if (abs >= 1e12) return (val/1e12).toFixed(1)+'T';
+      if (abs >= 1e9)  return (val/1e9).toFixed(1)+'B';
+      if (abs >= 1e6)  return (val/1e6).toFixed(1)+'M';
+      if (abs >= 1e3)  return (val/1e3).toFixed(1)+'K';
+      return String(val);
+    }
+    function animateNumber($el, target, duration, opts={}){
+      const start = 0, t0 = performance.now();
+      function tick(now){
+        const p = Math.min((now - t0)/duration, 1);
+        const v = Math.floor(start + (target - start) * p);
+        if (opts.format === 'money-abbr') $el.text('$'+abbrMoney(v));
+        else if (opts.format === 'money') $el.text(new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0}).format(v));
+        else if (opts.suffix) $el.text(new Intl.NumberFormat('es-CO').format(v)+opts.suffix);
+        else $el.text(new Intl.NumberFormat('es-CO').format(v));
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+    function observeNumbers(){
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            const $n = $(e.target);
+            const t = Number($n.data('target') || 0);
+            const fmt = $n.data('format') || null;
+            const suf = $n.data('suffix') || null;
+            animateNumber($n, t, 1200, { format: fmt, suffix: suf });
+            $n.addClass('in'); io.unobserve(e.target);
+          }
+        });
+      }, { threshold: .2 });
+      document.querySelectorAll('.number').forEach(el => io.observe(el));
+    }
+    observeNumbers();
+
+    // ========= Charts con más “resalte” =========
+    let cInnov, cImpact;
+    function chartColors(){
+      const dark = root.classList.contains('dark');
+      return {
+        text: dark ? '#e5e7eb' : '#334155',
+        grid: dark ? 'rgba(148,163,184,.16)' : 'rgba(148,163,184,.28)',
+        donut: ['#4f46e5','#10b981','#eab308'],
+        barGradFrom: dark ? '#22d3ee' : '#4f46e5',
+        barGradTo:   dark ? '#6366f1' : '#10b981'
+      };
+    }
+    // Plugin de sombra
+    const shadowPlugin = {
+      id: 'shadow',
+      beforeDraw: (chart, args, opts) => {
+        const {ctx, chartArea} = chart;
+        ctx.save();
+        ctx.shadowColor = 'rgba(0,0,0,.25)';
+        ctx.shadowBlur = 18;
+        ctx.shadowOffsetY = 8;
+      },
+      afterDraw: (chart) => chart.ctx.restore()
+    };
+    Chart.register(shadowPlugin);
+
+    function buildDonut(){
+      const el = document.getElementById('chartInnovacion');
+      const c = chartColors();
+      const data = [35, 40, 25];
+      const lang = (localStorage.getItem(LANG_KEY)||'es');
+      const labelsES = ['Apps (SurtiApp, móviles)','E-commerce (multimarca)','CMS / Automatización'];
+      const labelsEN = ['Apps (SurtiApp, mobile)','E-commerce (multibrand)','CMS / Automation'];
+      cInnov && cInnov.destroy();
+      cInnov = new Chart(el.getContext('2d'), {
+        type: 'doughnut',
+        data: {
+          labels: lang==='en' ? labelsEN : labelsES,
+          datasets: [{
+            data,
+            backgroundColor: chartColors().donut,
+            borderWidth: 4,
+            borderColor: '#fff'
+          }]
+        },
+        options: {
+          cutout: '60%',
+          plugins: {
+            legend: { position: 'bottom', labels:{ color: c.text, boxWidth: 18 } },
+            tooltip: { callbacks: { label: (ctx) => `${ctx.label}: ${ctx.parsed}%` } }
+          }
+        }
+      });
+    }
+
+    function buildBars(){
+      const el = document.getElementById('chartImpacto');
+      const c = chartColors();
+      const lang = (localStorage.getItem(LANG_KEY)||'es');
+      const labels = lang==='en' ? ['Altipal','Universales Delta','Surtilider','Hatsu','Avon'] : ['Altipal','Universales Delta','Surtilider','Hatsu','Avon'];
+      const ctx = el.getContext('2d');
+      const grad = ctx.createLinearGradient(0,0,0,260);
+      grad.addColorStop(0, c.barGradFrom);
+      grad.addColorStop(1, c.barGradTo);
+      cImpact && cImpact.destroy();
+      cImpact = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: lang==='en' ? 'Annual uplift (COP MM)' : 'Incremento anual (COP MM)',
+            data: [1350, 420, 180, 90, 110],
+            backgroundColor: grad,
+            borderRadius: 10
+          }]
+        },
+        options: {
+          scales: {
+            x: { ticks: { color: c.text }, grid: { display:false } },
+            y: { beginAtZero:true, ticks: { color: c.text, callback:v=>new Intl.NumberFormat('es-CO').format(v) }, grid:{ color: c.grid } }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: { callbacks: { label: (ctx)=> ` ${new Intl.NumberFormat('es-CO').format(ctx.parsed.y)} MM` } }
+          }
+        }
+      });
+    }
+
+    window._rebuildCharts = function(){ buildDonut(); buildBars(); }
+    _rebuildCharts();
+
+  </script>
+</body>
+</html>
